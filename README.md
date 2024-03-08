@@ -1,12 +1,7 @@
-## Introduction
-
-next-aelf is a collection of demo which allow you to set up your own aelf project in nextjs quickly and easily.\
-We have 3 parts related to manage a complete project.
-
-- Example. It will guide you how to interact with wallet, use media query, use redux for managing application state, interact with a local or remote aelf node using a HTTP connection.
-- MicroApp. It will guide you how to use aelf in a micro front-end framework.
-  The following documentation will guide you through installing and running next-aelf. Of course it's optional.
-- Monitor. It will guide you how to add monitor in your project. Of course it's optional.
+# AeFinder
+A Powerful Indexer for Blockchain Data Access.
+  
+Open [https://home.aefinder.io](https://home.aefinder.io) to visit the website.
 
 ## How to use
 
