@@ -15,8 +15,7 @@ const defaultMeta = {
    * No need to be filled, will be populated with openGraph function
    * If you wish to use a normal image, just specify the path below
    */
-  // TODO change this to your own domain
-  image: 'https://tsnext-tw.thcl.dev/images/large-og.png',
+  image: '/public/svg/logo-banner.svg',
 };
 
 type SeoProps = {
