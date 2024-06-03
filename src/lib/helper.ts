@@ -9,7 +9,6 @@ export function openGraph({
   siteName,
   templateTitle,
   description,
-  // TODO : Add logo
   logo = '/public/svg/logo-banner.svg',
 }: OpenGraphType): string {
   const ogLogo = encodeURIComponent(logo);

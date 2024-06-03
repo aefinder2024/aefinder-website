@@ -28,6 +28,7 @@
 }
 
 @layer base {
+  /* inter var - latin */
   @font-face {
     font-family: 'Inter';
     font-style: normal;
@@ -72,12 +73,10 @@
   .p {
     @apply font-primary text-sm md:text-base;
   }
-  /* #end region  /**======== Typography =========== */
+  /* #endregion  /**======== Typography =========== */
 
   .layout {
     min-width: 48rem;
-    /* 1100px */
-    max-width: 68.75rem;
     @apply mx-auto w-11/12;
   }
 
