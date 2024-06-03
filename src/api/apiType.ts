@@ -22,4 +22,5 @@ export type UrlObj = { [key: string]: BaseConfig };
 // eslint-disable-next-line
 export type API_REQ_FUNCTION = (
   config?: RequestConfig
+  // eslint-disable-next-line
 ) => Promise<any | AxiosResponse<any>>;
