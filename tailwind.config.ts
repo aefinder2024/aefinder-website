@@ -23,7 +23,9 @@ export default {
           900: 'rgb(var(--tw-color-primary-900) / <alpha-value>)',
           950: 'rgb(var(--tw-color-primary-950) / <alpha-value>)',
         },
-        dark: '#222222',
+        dark: {
+          normal: '#1A1A1A',
+        },
         blue: {
           brand: '#285EEF',
           normal: '#285EEF',
@@ -32,6 +34,14 @@ export default {
           disable: '#A9BFFF',
           bg: '#E2F0FF',
           link: '#127FFF',
+        },
+        gray: {
+          E0: '#E0E0E0',
+          F0: '#F0F0F0',
+          80: '#808080',
+          F5: '#F5F5F5',
+          D6: '#D6D6D6',
+          AD: '#ADADAD',
         },
         success: {
           normal: '#00B73E',
@@ -50,7 +60,6 @@ export default {
           bg: '#FEE8E8',
         },
       },
-      // TODO delete this keyframes
       keyframes: {
         flicker: {
           '0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100%': {

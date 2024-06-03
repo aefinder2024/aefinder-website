@@ -37,7 +37,7 @@ const TextButton = React.forwardRef<HTMLButtonElement, TextButtonProps>(
             'text-black hover:text-gray-600 active:text-gray-800',
             'disabled:text-gray-300',
           ],
-          //#end region  //*======== Variant ===========
+          //#endregion  //*======== Variant ===========
           'disabled:cursor-not-allowed disabled:brightness-105 disabled:hover:underline',
           className
         )}
