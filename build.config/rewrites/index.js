@@ -1,8 +1,7 @@
-import devConfig from './development';
-import proConfig from './production';
-
-// const devConfig = require('./development');
-// const proConfig = require('./production');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const devConfig = require('./development');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const proConfig = require('./production');
 
 const { NEXT_PUBLIC_NODE_ENV } = process.env;
 

@@ -1,8 +1,7 @@
-import path from 'path';
-
-import rewritesConfig from './rewrites/index';
-// const rewritesConfig = require('./rewrites/index');
-// const path = require('path');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const rewritesConfig = require('./rewrites/index');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path');
 
 module.exports = {
   reactStrictMode: true,

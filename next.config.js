@@ -1,37 +1,15 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  eslint: {
-    dirs: ['src'],
-  },
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withPlugins = require('next-compose-plugins');
+const { ANALYZE, NODE_ENV } = process.env;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const pluginConfig = require('./build.config/plugin');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const development = require('./build.config/development');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const production = require('./build.config/production');
 
-  reactStrictMode: true,
-  swcMinify: true,
+const config =
+  ANALYZE === 'true' || NODE_ENV === 'production' ? production : development;
 
-  // Uncoment to add domain whitelist
-  // images: {
-  //   domains: [
-  //     'res.cloudinary.com',
-  //   ],
-  // },
-
-  // SVGR
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: [
-        {
-          loader: '@svgr/webpack',
-          options: {
-            typescript: true,
-            icon: true,
-          },
-        },
-      ],
-    });
-
-    return config;
-  },
-};
-
-module.exports = nextConfig;
+module.exports = withPlugins(pluginConfig, config);
