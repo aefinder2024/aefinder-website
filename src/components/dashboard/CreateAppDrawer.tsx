@@ -11,6 +11,7 @@ type CreateAppDrawerProps = {
   title: string;
   createAppDrawerVisible: boolean;
   setCreateAppDrawerVisible: (visible: boolean) => void;
+  appDetail?: CreateAppResponse;
 };
 
 export default function CreateAppDrawer({
@@ -18,18 +19,21 @@ export default function CreateAppDrawer({
   title,
   createAppDrawerVisible,
   setCreateAppDrawerVisible,
+  appDetail,
 }: CreateAppDrawerProps) {
   const [current, setCurrent] = useState(type);
-  const [currentAppDetail, setCurrentAppDetail] = useState<CreateAppResponse>({
-    appId: '55',
-    appName: 'wahaha555',
-    imageUrl: '',
-    description: 'Sashimi Cross Chain Bsc',
-    sourceCodeUrl: '',
-    status: 0,
-    CreateTime: 0,
-    UpdateTime: 0,
-  });
+  const [currentAppDetail, setCurrentAppDetail] = useState<CreateAppResponse>(
+    appDetail || {
+      appId: '55',
+      appName: 'wahaha555',
+      imageUrl: '',
+      description: 'Sashimi Cross Chain Bsc',
+      sourceCodeUrl: '',
+      status: 0,
+      CreateTime: 0,
+      UpdateTime: 0,
+    }
+  );
 
   return (
     <Drawer
@@ -64,6 +68,7 @@ export default function CreateAppDrawer({
           type={type}
           setCurrent={setCurrent}
           currentAppDetail={currentAppDetail}
+          setCreateAppDrawerVisible={setCreateAppDrawerVisible}
         />
       )}
     </Drawer>

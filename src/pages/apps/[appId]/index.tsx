@@ -10,7 +10,6 @@ import { CreateAppResponse } from '@/types/appType';
 
 export default function AppDetail() {
   const [deployDrawerVisible, setDeployDrawerVisible] = useState(false);
-  // eslint-disable-next-line
   const [currentAppDetail, setCurrentAppDetail] = useState<CreateAppResponse>({
     appId: '123123212',
     appName: 'wahaha',
@@ -24,7 +23,10 @@ export default function AppDetail() {
 
   return (
     <div className='px-[40px] pb-[60px]'>
-      <HeaderHandle setDeployDrawerVisible={setDeployDrawerVisible} />
+      <HeaderHandle
+        setDeployDrawerVisible={setDeployDrawerVisible}
+        setCurrentAppDetail={setCurrentAppDetail}
+      />
       <DetailBox currentAppDetail={currentAppDetail} />
       <DownloadTempFile />
       {deployDrawerVisible && (

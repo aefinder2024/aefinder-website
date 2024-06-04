@@ -1,18 +1,24 @@
 import { EditOutlined, SyncOutlined } from '@ant-design/icons';
 import { Button, Select } from 'antd';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
+
+import CreateAppDrawer from '@/components/dashboard/CreateAppDrawer';
 
 import { useAppSelector } from '@/store/hooks';
 
+import { CreateAppResponse } from '@/types/appType';
+
 type HeaderHandleProps = {
   setDeployDrawerVisible: (visible: boolean) => void;
+  setCurrentAppDetail: (detail: CreateAppResponse) => void;
 };
 
 export default function HeaderHandle({
   setDeployDrawerVisible,
 }: HeaderHandleProps) {
   const username = useAppSelector((state) => state.common.username);
+  const [editAppDrawerVisible, setEditAppDrawerVisible] = useState(false);
 
   return (
     <div className='border-gray-F0 flex h-[130px] items-center justify-between border-b pt-[14px]'>
@@ -39,7 +45,10 @@ export default function HeaderHandle({
             <span>{username}</span>
           </div>
         </div>
-        <Button className='border-blue-link text-blue-link mr-3'>
+        <Button
+          className='border-blue-link text-blue-link mr-3'
+          onClick={() => setEditAppDrawerVisible(true)}
+        >
           <EditOutlined className='align-middle' />
           Edit
         </Button>
@@ -71,6 +80,14 @@ export default function HeaderHandle({
           Upload
         </Button>
       </div>
+      {editAppDrawerVisible && (
+        <CreateAppDrawer
+          type={1}
+          title='Edit App'
+          createAppDrawerVisible={editAppDrawerVisible}
+          setCreateAppDrawerVisible={setEditAppDrawerVisible}
+        />
+      )}
     </div>
   );
 }
