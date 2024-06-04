@@ -29,6 +29,7 @@ export function getRequestConfig(base: BaseConfig, config?: RequestConfig) {
 type QueryAuthApiBaseConfig = {
   grant_type: string;
   scope: string;
+  client_id: string;
 };
 
 export type QueryAuthApiExtraRequest = {
@@ -39,6 +40,7 @@ export type QueryAuthApiExtraRequest = {
 const queryAuthApiBaseConfig: QueryAuthApiBaseConfig = {
   grant_type: 'password',
   scope: 'AeFinder',
+  client_id: 'AeFinder_App',
 };
 
 export type JWTData = {

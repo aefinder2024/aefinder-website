@@ -3,4 +3,5 @@ export type LoginType = {
   password: string;
   scope: string;
   grant_type: string;
+  client_id: string;
 };
