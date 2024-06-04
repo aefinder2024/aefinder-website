@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-import { AeFinderAuthHost } from '@/constant/index';
+import queryString from 'query-string';
 
 import { BaseConfig, RequestConfig } from './apiType';
 import service from './axios';
@@ -93,8 +92,8 @@ export const setLocalJWT = (key: string, data: LocalJWTData) => {
 export const queryAuthApi = async (config: QueryAuthApiExtraRequest) => {
   const data = { ...queryAuthApiBaseConfig, ...config };
   const res = await axios.post<JWTData>(
-    `${AeFinderAuthHost}/connect/token`,
-    JSON.stringify(data),
+    `/connect/token`,
+    queryString.stringify(data),
     {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     }
