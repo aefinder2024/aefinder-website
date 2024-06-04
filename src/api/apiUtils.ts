@@ -1,9 +1,10 @@
 import axios from 'axios';
 
+import { AeFinderAuthHost } from '@/constant/index';
+
 import { BaseConfig, RequestConfig } from './apiType';
 import service from './axios';
 import myEvents from './myEvent';
-
 export function spliceUrl(baseUrl: string, extendArg?: string) {
   return extendArg ? baseUrl + '/' + extendArg : baseUrl;
 }
@@ -86,9 +87,6 @@ export const setLocalJWT = (key: string, data: LocalJWTData) => {
     JSON.stringify({ [key]: localData })
   );
 };
-
-// Todo add AeFinderAuthHost mainnet  testnet
-const AeFinderAuthHost = '';
 
 export const queryAuthApi = async (config: QueryAuthApiExtraRequest) => {
   const data = { ...queryAuthApiBaseConfig, ...config };
