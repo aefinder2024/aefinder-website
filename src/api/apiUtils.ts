@@ -1,6 +1,8 @@
 import axios from 'axios';
 import queryString from 'query-string';
 
+import logger from '@/lib/logger';
+
 import { BaseConfig, RequestConfig } from './apiType';
 import service from './axios';
 import myEvents from './myEvent';
@@ -91,23 +93,29 @@ export const setLocalJWT = (key: string, data: LocalJWTData) => {
 
 export const queryAuthApi = async (config: QueryAuthApiExtraRequest) => {
   const data = { ...queryAuthApiBaseConfig, ...config };
-  const res = await axios.post<JWTData>(
-    `/connect/token`,
-    queryString.stringify(data),
-    {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  let token_type = '';
+  let access_token = '';
+  try {
+    const res = await axios.post<JWTData>(
+      `/connect/token`,
+      queryString.stringify(data),
+      {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      }
+    );
+    token_type = res.data.token_type;
+    access_token = res.data.access_token;
+
+    service.defaults.headers.common[
+      'Authorization'
+    ] = `${token_type} ${access_token}`;
+    myEvents.AuthTokenSuccess.emit();
+
+    if (localStorage) {
+      setLocalJWT('LocalJWTData', res.data);
     }
-  );
-  const token_type = res.data.token_type;
-  const access_token = res.data.access_token;
-
-  service.defaults.headers.common[
-    'Authorization'
-  ] = `${token_type} ${access_token}`;
-  myEvents.AuthTokenSuccess.emit();
-
-  if (localStorage) {
-    setLocalJWT('LocalJWTData', res.data);
+  } catch (error) {
+    logger(error);
   }
 
   return {
