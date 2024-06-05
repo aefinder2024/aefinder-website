@@ -3,6 +3,9 @@ import queryString from 'query-string';
 
 import logger from '@/lib/logger';
 
+import { AeFinderAuthHost } from '@/constant';
+import { NoAuthToken } from '@/constant';
+
 import { BaseConfig, RequestConfig } from './apiType';
 import service from './axios';
 import myEvents from './myEvent';
@@ -97,7 +100,7 @@ export const queryAuthApi = async (config: QueryAuthApiExtraRequest) => {
   let access_token = '';
   try {
     const res = await axios.post<JWTData>(
-      `/connect/token`,
+      `${AeFinderAuthHost}/connect/token`,
       queryString.stringify(data),
       {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -124,24 +127,15 @@ export const queryAuthApi = async (config: QueryAuthApiExtraRequest) => {
   };
 };
 
-export const queryAuthToken = async ({
-  username,
-  password,
-}: {
-  username: string;
-  password: string;
-}) => {
+export const queryAuthToken = async () => {
   const localData = getLocalJWT('LocalJWTData');
-
+  console.log('queryAuthToken', localData);
   if (localData) {
     service.defaults.headers.common[
       'Authorization'
     ] = `${localData.token_type} ${localData.access_token}`;
     return `${localData.token_type} ${localData.access_token}`;
+  } else {
+    return NoAuthToken;
   }
-
-  return queryAuthApi({
-    username,
-    password,
-  });
 };

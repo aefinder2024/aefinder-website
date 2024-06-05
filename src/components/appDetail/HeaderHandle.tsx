@@ -1,5 +1,6 @@
 import { EditOutlined, SyncOutlined } from '@ant-design/icons';
 import { Button, Select } from 'antd';
+import { MessageInstance } from 'antd/es/message/interface';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
@@ -12,10 +13,12 @@ import { CreateAppResponse } from '@/types/appType';
 type HeaderHandleProps = {
   setDeployDrawerVisible: (visible: boolean) => void;
   setCurrentAppDetail: (detail: CreateAppResponse) => void;
+  messageApi: MessageInstance;
 };
 
 export default function HeaderHandle({
   setDeployDrawerVisible,
+  messageApi,
 }: HeaderHandleProps) {
   const username = useAppSelector((state) => state.common.username);
   const [editAppDrawerVisible, setEditAppDrawerVisible] = useState(false);
@@ -86,6 +89,7 @@ export default function HeaderHandle({
           title='Edit App'
           createAppDrawerVisible={editAppDrawerVisible}
           setCreateAppDrawerVisible={setEditAppDrawerVisible}
+          messageApi={messageApi}
         />
       )}
     </div>

@@ -1,9 +1,6 @@
-import { message } from 'antd';
 import clsx, { ClassValue } from 'clsx';
 import { DependencyList, useCallback, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
-
-import logger from '@/lib/logger';
 
 /** Merge classes with tailwind-merge with clsx full feature */
 export function cn(...inputs: ClassValue[]) {
@@ -64,7 +61,6 @@ export function useLatestRef<T>(value: T) {
 
 // eslint-disable-next-line
 export function handleErrorMessage(error: any, errorText?: string) {
-  logger(error, errorText);
-  message.error(error);
+  console.log(error);
   return error;
 }

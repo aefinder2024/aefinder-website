@@ -1,3 +1,3 @@
 // TODO mainnet change the address of the aefinder server
-export const AeFinderHost = 'https://home.aefinder.com';
-export const AeFinderAuthHost = 'https://testhome.aefinder.com';
+export const AeFinderHost = 'http://192.168.71.128:8081';
+export const AeFinderAuthHost = 'http://192.168.71.128:8082';

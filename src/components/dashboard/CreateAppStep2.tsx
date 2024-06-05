@@ -1,40 +1,43 @@
 import { Button, Divider, Form, Input } from 'antd';
-import React from 'react';
-
-import logger from '@/lib/logger';
+import { MessageInstance } from 'antd/es/message/interface';
+import React, { useCallback } from 'react';
 
 import Copy from '@/components/Copy';
+
+import { modifyApp } from '@/api/requestApp';
 
 import { CreateAppResponse } from '@/types/appType';
 
 type CreateAppStep2Props = {
   type: 0 | 1; // 0: create, 1: modify
-  setCurrent: (value: 0 | 1) => void;
-  currentAppDetail: CreateAppResponse | undefined;
+  currentAppDetail: CreateAppResponse;
   setCreateAppDrawerVisible: (value: boolean) => void;
+  messageApi: MessageInstance;
 };
 
 export default function CreateAppStep2({
   type,
-  setCurrent,
   currentAppDetail,
   setCreateAppDrawerVisible,
+  messageApi,
 }: CreateAppStep2Props) {
   const [form] = Form.useForm();
   const FormItem = Form.Item;
 
-  const handlePre = () => {
-    if (type === 0) {
-      setCurrent(0);
-    } else {
+  const handleModify = useCallback(async () => {
+    const res = await modifyApp({
+      appId: currentAppDetail.appId,
+      description: form.getFieldValue('description'),
+      sourceCodeUrl: form.getFieldValue('sourceCodeUrl'),
+    });
+    if (res) {
+      messageApi.open({
+        type: 'success',
+        content: 'edit app success, next edit detail',
+      });
       setCreateAppDrawerVisible(false);
     }
-  };
-
-  const handleModify = () => {
-    // TODO: modify app
-    logger('handleModify');
-  };
+  }, [form, currentAppDetail.appId, setCreateAppDrawerVisible, messageApi]);
 
   return (
     <Form
@@ -68,9 +71,9 @@ export default function CreateAppStep2({
         <Button
           size='large'
           className='border-blue-link text-blue-link mr-[4%] w-[48%]'
-          onClick={() => handlePre()}
+          onClick={() => setCreateAppDrawerVisible(false)}
         >
-          {type === 0 ? 'Previous' : 'Cancel'}
+          Cancel
         </Button>
         <Button
           size='large'
@@ -78,7 +81,7 @@ export default function CreateAppStep2({
           type='primary'
           htmlType='submit'
         >
-          {type === 0 ? 'Create' : 'Save changes'}
+          Save changes
         </Button>
       </FormItem>
     </Form>

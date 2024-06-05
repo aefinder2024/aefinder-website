@@ -7,7 +7,7 @@ export enum AppStatusType {
   UnDeployed = 0,
 }
 
-export type CreateAppResponse = {
+export interface CreateAppResponse {
   appId: string;
   deployKey?: string;
   appName: string;
@@ -17,7 +17,7 @@ export type CreateAppResponse = {
   status: number; // 0: UnDeployed, 1: Deployed
   CreateTime: number;
   UpdateTime: number;
-};
+}
 
 export type ModifyAppRequest = {
   appId: string;
@@ -36,4 +36,7 @@ export type GetAppDetailResponse = {
   };
 } & CreateAppResponse;
 
-export type getAppListResponse = CreateAppResponse[];
+export type GetAppListResponse = {
+  items: CreateAppResponse[];
+  totalCount: number;
+};

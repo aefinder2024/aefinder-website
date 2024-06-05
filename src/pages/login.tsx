@@ -9,8 +9,7 @@ import { useDebounceCallback } from '@/lib/utils';
 import { useAppDispatch } from '@/store/hooks';
 import { setUsername } from '@/store/slices/commonSlice';
 
-import { getLocalJWT, queryAuthApi } from '@/api/apiUtils';
-import service from '@/api/axios';
+import { queryAuthApi } from '@/api/apiUtils';
 
 export default function LogIn() {
   const [form] = Form.useForm();
@@ -29,17 +28,6 @@ export default function LogIn() {
   }, [dispatch, form, router, messageApi]);
 
   const handleLogin = useDebounceCallback(async () => {
-    const data = getLocalJWT('LocalJWTData');
-    if (data) {
-      const token_type = data.token_type;
-      const access_token = data.access_token;
-      service.defaults.headers.common[
-        'Authorization'
-      ] = `${token_type} ${access_token}`;
-      loginSuccessActive();
-      return;
-    }
-    // 2 if no data -> default queryAuthApi
     const res = await queryAuthApi({
       username: form.getFieldValue('username'),
       password: form.getFieldValue('password'),

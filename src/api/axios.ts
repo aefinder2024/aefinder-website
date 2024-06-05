@@ -32,11 +32,10 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    const res = response.data;
-    if (res?.code?.substring(0, 1) !== '2') {
-      return Promise.reject(res);
+    if (response.status !== 200) {
+      return Promise.reject(response.statusText);
     }
-    return res;
+    return response.data;
   },
   (error) => {
     if (isDeniedRequest(error)) {
