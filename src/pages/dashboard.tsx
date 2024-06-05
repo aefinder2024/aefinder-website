@@ -2,9 +2,7 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import Image from 'next/image';
-import React, { useCallback, useEffect, useState } from 'react';
-
-import logger from '@/lib/logger';
+import React, { useEffect, useState } from 'react';
 
 import AppItemCard from '@/components/dashboard/AppItemCard';
 import CreateAppDrawer from '@/components/dashboard/CreateAppDrawer';
@@ -19,14 +17,12 @@ export default function Dashboard() {
   const dispatch = useAppDispatch();
   const [createAppDrawerVisible, setCreateAppDrawerVisible] = useState(false);
   const appList = useAppSelector((state) => state.app.appList);
-  logger(appList);
-
-  const getAppListTemp = useCallback(async () => {
-    const { items = [] } = await getAppList();
-    dispatch(setAppList(items));
-  }, [dispatch]);
 
   useEffect(() => {
+    const getAppListTemp = async () => {
+      const { items = [] } = await getAppList();
+      dispatch(setAppList(items));
+    };
     getAppListTemp();
     // eslint-disable-next-line
   }, []);
