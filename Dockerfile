@@ -57,7 +57,8 @@ RUN chown nextjs:nodejs .next
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder --chown=nextjs:nodejs /app/public ./
-COPY --from=builder --chown=nextjs:nodejs /app/package.json ./
+COPY package.json ./
+RUN yarn install
 RUN rm -rf ./node_modules
 USER nextjs
 
