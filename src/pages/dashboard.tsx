@@ -23,6 +23,7 @@ export default function Dashboard() {
 
   const getAppListTemp = useCallback(async () => {
     const list = await getAppList();
+    logger(list);
     dispatch(setAppList(list));
   }, [dispatch]);
 
