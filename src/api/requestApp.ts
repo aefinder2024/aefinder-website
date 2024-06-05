@@ -1,4 +1,3 @@
-import logger from '@/lib/logger';
 import { handleErrorMessage } from '@/lib/utils';
 
 import { request } from './index';
@@ -8,7 +7,7 @@ import {
   CreateAppResponse,
   GetAppDetailRequest,
   GetAppDetailResponse,
-  getAppListResponse,
+  GetAppListResponse,
   ModifyAppRequest,
 } from '@/types/appType';
 
@@ -45,12 +44,10 @@ export const getAppDetail = async (
   }
 };
 
-export const getAppList = async (): Promise<getAppListResponse> => {
+export const getAppList = async (): Promise<GetAppListResponse> => {
   try {
-    logger('getAppList');
-    // const res = await request.app.getAppList();
-    // return res.data && res.data.item;
-    return [];
+    const res = await request.app.getAppList();
+    return res;
   } catch (error) {
     throw new Error(handleErrorMessage(error, 'getAppList error'));
   }

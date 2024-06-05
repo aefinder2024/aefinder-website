@@ -22,9 +22,8 @@ export default function Dashboard() {
   logger(appList);
 
   const getAppListTemp = useCallback(async () => {
-    const list = await getAppList();
-    logger(list);
-    dispatch(setAppList(list));
+    const { items = [] } = await getAppList();
+    dispatch(setAppList(items));
   }, [dispatch]);
 
   useEffect(() => {

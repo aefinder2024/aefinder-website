@@ -4,6 +4,7 @@ import queryString from 'query-string';
 import logger from '@/lib/logger';
 
 import { AeFinderAuthHost } from '@/constant';
+import { NoAuthToken } from '@/constant';
 
 import { BaseConfig, RequestConfig } from './apiType';
 import service from './axios';
@@ -126,24 +127,15 @@ export const queryAuthApi = async (config: QueryAuthApiExtraRequest) => {
   };
 };
 
-export const queryAuthToken = async ({
-  username,
-  password,
-}: {
-  username: string;
-  password: string;
-}) => {
+export const queryAuthToken = async () => {
   const localData = getLocalJWT('LocalJWTData');
-
+  console.log('queryAuthToken', localData);
   if (localData) {
     service.defaults.headers.common[
       'Authorization'
     ] = `${localData.token_type} ${localData.access_token}`;
     return `${localData.token_type} ${localData.access_token}`;
+  } else {
+    return NoAuthToken;
   }
-
-  return queryAuthApi({
-    username,
-    password,
-  });
 };
