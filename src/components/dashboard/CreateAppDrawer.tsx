@@ -16,7 +16,6 @@ type CreateAppDrawerProps = {
 
 export default function CreateAppDrawer({
   type,
-  title,
   createAppDrawerVisible,
   setCreateAppDrawerVisible,
   appDetail,
@@ -37,7 +36,7 @@ export default function CreateAppDrawer({
 
   return (
     <Drawer
-      title={title}
+      title={current === 0 ? 'Create App' : 'Edit App'}
       open={createAppDrawerVisible}
       onClose={() => setCreateAppDrawerVisible(false)}
       closeIcon={null}
@@ -60,6 +59,7 @@ export default function CreateAppDrawer({
         <CreateAppStep1
           setCurrent={setCurrent}
           setCreateAppDrawerVisible={setCreateAppDrawerVisible}
+          currentAppDetail={currentAppDetail}
           setCurrentAppDetail={setCurrentAppDetail}
         />
       )}

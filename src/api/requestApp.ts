@@ -15,8 +15,8 @@ export const createApp = async (
   params: CreateAppRequest
 ): Promise<CreateAppResponse> => {
   try {
-    const res = await request.app.createApp({ params });
-    return res.data;
+    const res = await request.app.createApp({ data: params });
+    return res;
   } catch (error) {
     throw new Error(handleErrorMessage(error, 'createApp error'));
   }
@@ -27,7 +27,7 @@ export const modifyApp = async (
 ): Promise<CreateAppResponse> => {
   try {
     const res = await request.app.modifyApp({ params });
-    return res.data;
+    return res;
   } catch (error) {
     throw new Error(handleErrorMessage(error, 'modifyApp error'));
   }
