@@ -5,6 +5,7 @@ export enum CommonErrorNameType {
 }
 
 export enum CancelTokenSourceKey {
+  // TODO addSubscription
   ADD_SUBSCRIPTION = 'addSubscription',
 }
 

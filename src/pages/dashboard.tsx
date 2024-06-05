@@ -1,6 +1,6 @@
 'use client';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
@@ -18,6 +18,7 @@ export default function Dashboard() {
   const dispatch = useAppDispatch();
   const [createAppDrawerVisible, setCreateAppDrawerVisible] = useState(false);
   const appList = useAppSelector((state) => state.app.appList);
+  const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
     const getAppListTemp = async () => {
@@ -27,10 +28,11 @@ export default function Dashboard() {
       dispatch(setAppList(items));
     };
     getAppListTemp();
-  }, [dispatch]);
+  }, [dispatch, createAppDrawerVisible]);
 
   return (
     <div>
+      {contextHolder}
       <Seo templateTitle='Dashboard' />
       <div className='px-[40px]'>
         <div className='border-gray-F0 flex h-[140px] items-center justify-between border-b'>
@@ -69,6 +71,7 @@ export default function Dashboard() {
           title='Create app'
           createAppDrawerVisible={createAppDrawerVisible}
           setCreateAppDrawerVisible={setCreateAppDrawerVisible}
+          messageApi={messageApi}
         />
       )}
     </div>

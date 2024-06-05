@@ -1,4 +1,5 @@
-import { Button, Divider, Form, Input, message } from 'antd';
+import { Button, Divider, Form, Input } from 'antd';
+import { MessageInstance } from 'antd/es/message/interface';
 import React, { useCallback } from 'react';
 
 import Copy from '@/components/Copy';
@@ -9,19 +10,19 @@ import { CreateAppResponse } from '@/types/appType';
 
 type CreateAppStep2Props = {
   type: 0 | 1; // 0: create, 1: modify
-  setCurrent: (value: 0 | 1) => void;
   currentAppDetail: CreateAppResponse;
   setCreateAppDrawerVisible: (value: boolean) => void;
+  messageApi: MessageInstance;
 };
 
 export default function CreateAppStep2({
   type,
   currentAppDetail,
   setCreateAppDrawerVisible,
+  messageApi,
 }: CreateAppStep2Props) {
   const [form] = Form.useForm();
   const FormItem = Form.Item;
-  const [messageApi, contextHolder] = message.useMessage();
 
   const handleModify = useCallback(async () => {
     const res = await modifyApp({
@@ -45,7 +46,6 @@ export default function CreateAppStep2({
       className={type === 0 ? 'mt-6' : 'mt-0'}
       onFinish={() => handleModify()}
     >
-      {contextHolder}
       <FormItem name='appName' label='App Name'>
         <Copy
           className='relative top-[-6px]'

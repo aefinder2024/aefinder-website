@@ -1,4 +1,5 @@
 import { Drawer, Steps } from 'antd';
+import { MessageInstance } from 'antd/es/message/interface';
 import React, { useState } from 'react';
 
 import CreateAppStep1 from '@/components/dashboard/CreateAppStep1';
@@ -12,6 +13,7 @@ type CreateAppDrawerProps = {
   createAppDrawerVisible: boolean;
   setCreateAppDrawerVisible: (visible: boolean) => void;
   appDetail?: CreateAppResponse;
+  messageApi: MessageInstance;
 };
 
 export default function CreateAppDrawer({
@@ -19,14 +21,16 @@ export default function CreateAppDrawer({
   createAppDrawerVisible,
   setCreateAppDrawerVisible,
   appDetail,
+  messageApi,
 }: CreateAppDrawerProps) {
   const [current, setCurrent] = useState(type);
+  // crate app step 1 detail
   const [currentAppDetail, setCurrentAppDetail] = useState<CreateAppResponse>(
     appDetail || {
-      appId: '55',
-      appName: 'wahaha555',
+      appId: '',
+      appName: '',
       imageUrl: '',
-      description: 'Sashimi Cross Chain Bsc',
+      description: '',
       sourceCodeUrl: '',
       status: 0,
       CreateTime: 0,
@@ -61,14 +65,15 @@ export default function CreateAppDrawer({
           setCreateAppDrawerVisible={setCreateAppDrawerVisible}
           currentAppDetail={currentAppDetail}
           setCurrentAppDetail={setCurrentAppDetail}
+          messageApi={messageApi}
         />
       )}
       {current === 1 && (
         <CreateAppStep2
           type={type}
-          setCurrent={setCurrent}
           currentAppDetail={currentAppDetail}
           setCreateAppDrawerVisible={setCreateAppDrawerVisible}
+          messageApi={messageApi}
         />
       )}
     </Drawer>

@@ -26,7 +26,8 @@ export const modifyApp = async (
   params: ModifyAppRequest
 ): Promise<CreateAppResponse> => {
   try {
-    const res = await request.app.modifyApp({ params });
+    const { appId, ...rest } = params;
+    const res = await request.app.modifyApp({ query: appId, data: rest });
     return res;
   } catch (error) {
     throw new Error(handleErrorMessage(error, 'modifyApp error'));
@@ -37,8 +38,9 @@ export const getAppDetail = async (
   params: GetAppDetailRequest
 ): Promise<GetAppDetailResponse> => {
   try {
-    const res = await request.app.getAppDetail({ params });
-    return res.data;
+    const { appId } = params;
+    const res = await request.app.getAppDetail({ query: appId });
+    return res;
   } catch (error) {
     throw new Error(handleErrorMessage(error, 'getAppDetail error'));
   }

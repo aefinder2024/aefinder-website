@@ -1,4 +1,5 @@
-import { Button, Divider, Form, Input, message } from 'antd';
+import { Button, Divider, Form, Input } from 'antd';
+import { MessageInstance } from 'antd/es/message/interface';
 import React, { useCallback } from 'react';
 
 import { createApp } from '@/api/requestApp';
@@ -10,6 +11,7 @@ type CreateAppStep1Props = {
   setCreateAppDrawerVisible: (visible: boolean) => void;
   currentAppDetail: CreateAppResponse;
   setCurrentAppDetail: (value: CreateAppResponse) => void;
+  messageApi: MessageInstance;
 };
 
 export default function CreateAppStep1({
@@ -17,10 +19,10 @@ export default function CreateAppStep1({
   setCreateAppDrawerVisible,
   currentAppDetail,
   setCurrentAppDetail,
+  messageApi,
 }: CreateAppStep1Props) {
   const [form] = Form.useForm();
   const FormItem = Form.Item;
-  const [messageApi, contextHolder] = message.useMessage();
 
   const handleCreate = useCallback(async () => {
     // "appName": "My App" // A-Z|a-z|0-9 blank
@@ -42,7 +44,6 @@ export default function CreateAppStep1({
       className='mt-6'
       onFinish={() => handleCreate()}
     >
-      {contextHolder}
       <FormItem
         name='appName'
         label='App Name'
