@@ -39,7 +39,6 @@ export default function AppDetail() {
       {contextHolder}
       <HeaderHandle
         setDeployDrawerVisible={setDeployDrawerVisible}
-        setCurrentAppDetail={setCurrentAppDetail}
         messageApi={messageApi}
       />
       <DetailBox currentAppDetail={currentAppDetail} />

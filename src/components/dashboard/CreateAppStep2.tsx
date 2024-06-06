@@ -4,6 +4,9 @@ import React, { useCallback } from 'react';
 
 import Copy from '@/components/Copy';
 
+import { useAppDispatch } from '@/store/hooks';
+import { setCurrentAppDetail } from '@/store/slices/appSlice';
+
 import { modifyApp } from '@/api/requestApp';
 
 import { CreateAppResponse } from '@/types/appType';
@@ -23,6 +26,7 @@ export default function CreateAppStep2({
 }: CreateAppStep2Props) {
   const [form] = Form.useForm();
   const FormItem = Form.Item;
+  const dispatch = useAppDispatch();
 
   const handleModify = useCallback(async () => {
     const res = await modifyApp({
@@ -35,9 +39,16 @@ export default function CreateAppStep2({
         type: 'success',
         content: 'edit app success, next edit detail',
       });
+      dispatch(setCurrentAppDetail(res));
       setCreateAppDrawerVisible(false);
     }
-  }, [form, currentAppDetail.appId, setCreateAppDrawerVisible, messageApi]);
+  }, [
+    form,
+    currentAppDetail.appId,
+    setCreateAppDrawerVisible,
+    messageApi,
+    dispatch,
+  ]);
 
   return (
     <Form
@@ -61,10 +72,18 @@ export default function CreateAppStep2({
         />
       </FormItem>
       <FormItem name='description' label='Description'>
-        <Input placeholder='App description' className='rounded-md' />
+        <Input
+          value={currentAppDetail?.description}
+          placeholder='App description'
+          className='rounded-md'
+        />
       </FormItem>
       <FormItem name='sourceCodeUrl' label='Repository URL'>
-        <Input placeholder='App sourceCodeUrl' className='rounded-md' />
+        <Input
+          value={currentAppDetail?.sourceCodeUrl}
+          placeholder='App sourceCodeUrl'
+          className='rounded-md'
+        />
       </FormItem>
       <Divider />
       <FormItem className='text-center'>
