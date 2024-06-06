@@ -1,18 +1,45 @@
+import { LoadingOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
+import { MessageInstance } from 'antd/es/message/interface';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import logger from '@/lib/logger';
+import { getDevTemplate } from '@/api/requestSubscription';
 
-export default function DownloadTempFile() {
+type DownloadTempFileProps = {
+  messageApi: MessageInstance;
+};
+
+export default function DownloadTempFile({
+  messageApi,
+}: DownloadTempFileProps) {
   const [downAppName, setDownAppName] = useState('');
   const [form] = Form.useForm();
   const FormItem = Form.Item;
+  const [isShowLoading, setIsShowLoading] = useState(false);
 
-  const handleDownload = () => {
-    logger('download');
-  };
+  const handleDownload = useCallback(async () => {
+    try {
+      setIsShowLoading(true);
+      const res = await getDevTemplate({ name: downAppName });
+      const blob = new Blob([res], { type: 'application/zip' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `${downAppName}.zip`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    } catch (error) {
+      console.log(error);
+      setIsShowLoading(false);
+      messageApi.open({
+        type: 'error',
+        content: 'download error, please retry',
+      });
+    } finally {
+      setIsShowLoading(false);
+    }
+  }, [downAppName, messageApi]);
 
   return (
     <div className='border-gray-E0 mt-5 flex items-center justify-center rounded-md border'>
@@ -59,7 +86,7 @@ export default function DownloadTempFile() {
               type='primary'
               htmlType='submit'
             >
-              Download
+              {isShowLoading ? <LoadingOutlined /> : 'Download'}
             </Button>
           </FormItem>
         </Form>

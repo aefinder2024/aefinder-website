@@ -138,3 +138,36 @@ export const queryAuthToken = async () => {
     return NoAuthToken;
   }
 };
+
+const getAccessTokenConfig = {
+  grant_type: 'client_credentials',
+  scope: 'AeFinder',
+};
+
+export type GetAccessTokenRequest = {
+  client_id: string;
+  client_secret: string;
+};
+
+export const getAccessToken = async (config: GetAccessTokenRequest) => {
+  const data = { ...getAccessTokenConfig, ...config };
+  let token_type = '';
+  let access_token = '';
+  try {
+    const res = await axios.post<JWTData>(
+      `${AeFinderAuthHost}/connect/token`,
+      queryString.stringify(data),
+      {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      }
+    );
+    token_type = res.data.token_type;
+    access_token = res.data.access_token;
+  } catch (error) {
+    logger(error);
+  }
+  return {
+    token_type,
+    access_token,
+  };
+};

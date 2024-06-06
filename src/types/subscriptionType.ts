@@ -1,4 +1,6 @@
 export type CreateSubscriptionRequest = {
+  appId: string;
+  deployKey: string;
   Manifest: string;
   Code: File;
 };
@@ -42,4 +44,8 @@ export type VersionType = {
 export type GetSubscriptionResponse = {
   currentVersion: VersionType;
   pendingVersion: VersionType;
+};
+
+export type GetDevTemplateRequest = {
+  name: string;
 };
