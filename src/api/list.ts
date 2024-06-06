@@ -47,15 +47,17 @@ const SubscriptionsApiList = {
     target: '/api/apps/subscriptions',
     baseConfig: { method: 'POST' },
   },
-  // TODO  /api/apps/subscriptions/manifest/{version}
   updateSubscription: {
-    target: '/api/apps/subscriptions/manifest/',
+    target: '/api/apps/subscriptions/manifest',
     baseConfig: { method: 'PUT' },
   },
-  // TODO /api/apps/subscriptions/code/{version}
   updateCode: {
-    target: '/api/apps/subscriptions/code/',
+    target: '/api/apps/subscriptions/code',
     baseConfig: { method: 'PUT' },
+  },
+  getDevTemplate: {
+    target: '/api/dev-template',
+    baseConfig: { method: 'POST' },
   },
 };
 

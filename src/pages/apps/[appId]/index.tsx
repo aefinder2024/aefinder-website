@@ -42,13 +42,14 @@ export default function AppDetail() {
         messageApi={messageApi}
       />
       <DetailBox currentAppDetail={currentAppDetail} />
-      <DownloadTempFile />
+      <DownloadTempFile messageApi={messageApi} />
       {deployDrawerVisible && (
         <DeployDrawer
           type={0}
           title='Deploy app'
           deployDrawerVisible={deployDrawerVisible}
           setDeployDrawerVisible={setDeployDrawerVisible}
+          messageApi={messageApi}
         />
       )}
     </div>
