@@ -8,11 +8,8 @@ import CreateAppDrawer from '@/components/dashboard/CreateAppDrawer';
 
 import { useAppSelector } from '@/store/hooks';
 
-import { CreateAppResponse } from '@/types/appType';
-
 type HeaderHandleProps = {
   setDeployDrawerVisible: (visible: boolean) => void;
-  setCurrentAppDetail: (detail: CreateAppResponse) => void;
   messageApi: MessageInstance;
 };
 
@@ -22,6 +19,9 @@ export default function HeaderHandle({
 }: HeaderHandleProps) {
   const username = useAppSelector((state) => state.common.username);
   const [editAppDrawerVisible, setEditAppDrawerVisible] = useState(false);
+  const currentAppDetail = useAppSelector(
+    (state) => state.app.currentAppDetail
+  );
 
   return (
     <div className='border-gray-F0 flex h-[130px] items-center justify-between border-b pt-[14px]'>
@@ -35,7 +35,7 @@ export default function HeaderHandle({
         />
         <div className='relative inline-block'>
           <div className='text-block relative top-[4px] mr-3 text-3xl font-medium'>
-            PortkeyV1
+            {currentAppDetail?.appName}
           </div>
           <div className='text-gray-80 absolute left-[-40px] top-[-20px] min-w-[100px] text-sm'>
             <Image
@@ -87,6 +87,7 @@ export default function HeaderHandle({
         <CreateAppDrawer
           type={1}
           title='Edit App'
+          appDetail={currentAppDetail}
           createAppDrawerVisible={editAppDrawerVisible}
           setCreateAppDrawerVisible={setEditAppDrawerVisible}
           messageApi={messageApi}

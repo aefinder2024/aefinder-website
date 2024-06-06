@@ -3,8 +3,7 @@ import queryString from 'query-string';
 
 import logger from '@/lib/logger';
 
-import { AeFinderAuthHost } from '@/constant';
-import { NoAuthToken } from '@/constant';
+import { AeFinderAuthHost, NoAuthToken } from '@/constant';
 
 import { BaseConfig, RequestConfig } from './apiType';
 import service from './axios';
