@@ -3,7 +3,7 @@ import queryString from 'query-string';
 
 import logger from '@/lib/logger';
 
-import { AeFinderAuthHost, NoAuthToken } from '@/constant';
+import { AeFinderAuthHost } from '@/constant';
 
 import { BaseConfig, RequestConfig } from './apiType';
 import service from './axios';
@@ -56,6 +56,7 @@ const Day = 1 * 24 * 60 * 60 * 1000;
 
 export type LocalJWTData = {
   expiresTime?: number;
+  username?: string;
 } & JWTData;
 
 export enum LocalStorageKey {
@@ -114,7 +115,7 @@ export const queryAuthApi = async (config: QueryAuthApiExtraRequest) => {
     myEvents.AuthTokenSuccess.emit();
 
     if (localStorage) {
-      setLocalJWT('LocalJWTData', res.data);
+      setLocalJWT('LocalJWTData', { ...res.data, username: config.username });
     }
   } catch (error) {
     logger(error);
@@ -128,14 +129,13 @@ export const queryAuthApi = async (config: QueryAuthApiExtraRequest) => {
 
 export const queryAuthToken = async () => {
   const localData = getLocalJWT('LocalJWTData');
-  console.log('queryAuthToken', localData);
   if (localData) {
     service.defaults.headers.common[
       'Authorization'
     ] = `${localData.token_type} ${localData.access_token}`;
-    return `${localData.token_type} ${localData.access_token}`;
+    return { auth: 'AuthToken', username: localData.username };
   } else {
-    return NoAuthToken;
+    return { auth: 'NoAuthToken' };
   }
 };
 

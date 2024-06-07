@@ -29,8 +29,10 @@ export default function AppDetail() {
     const getAppDetailTemp = async () => {
       await queryAuthToken();
       const { appId } = router.query;
-      const res = await getAppDetail({ appId: String(appId) });
-      dispatch(setCurrentAppDetail(res));
+      if (appId) {
+        const res = await getAppDetail({ appId: String(appId) });
+        dispatch(setCurrentAppDetail(res));
+      }
       const currentVersion = await getSubscriptions();
       // console.log(currentVersion);
       dispatch(setCurrentVersion(currentVersion));
