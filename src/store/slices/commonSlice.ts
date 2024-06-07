@@ -7,7 +7,7 @@ export interface CommonSliceState {
 
 const initialState: CommonSliceState = {
   isLoading: false,
-  username: 'wahaha1234',
+  username: '',
 };
 
 export const commonSlice = createAppSlice({

@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import axios from 'axios';
 
 import logger from '@/lib/logger';
@@ -26,6 +27,7 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
+    message.error(error?.message);
     Promise.reject(error);
   }
 );
@@ -33,11 +35,14 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => {
     if (response.status !== 200) {
+      message.error(response.data);
       return Promise.reject(response.statusText);
     }
     return response.data;
   },
   (error) => {
+    console.log('error', error);
+    message.error(error.message);
     if (isDeniedRequest(error)) {
       myEvents.DeniedRequest.emit();
     }
