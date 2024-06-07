@@ -42,10 +42,10 @@ export default function AppItemCard({ appList }: AppItemProps) {
                 height={120}
                 className='mt-7'
               />
-              <div className='text-block mb-2 mt-4 text-2xl'>
+              <div className='text-block mb-2 mt-4 max-w-[80%] truncate text-2xl'>
                 {item.appName}
               </div>
-              <div className='text-gray-80 text-center text-sm'>
+              <div className='text-gray-80 max-w-[80%] truncate text-center text-sm'>
                 {item.description}
               </div>
             </div>

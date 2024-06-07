@@ -1,48 +1,42 @@
-import axios from 'axios';
-
 import { handleErrorMessage } from '@/lib/utils';
 
-import { CancelTokenSourceKey, CommonErrorNameType } from './apiType';
+import { getAccessToken } from './apiUtils';
 import { request } from './index';
 
 import {
   CreateSubscriptionRequest,
-  CreateSubscriptionResponse,
+  GetDevTemplateRequest,
   GetSubscriptionResponse,
   UpdateCode,
   UpdateSubscriptionRequest,
 } from '@/types/subscriptionType';
 
-// export const createApp = async (params: CreateAppRequest): Promise<CreateAppResponse> => {
-//   try {
-//     const res = await request.app.createApp({ params });
-//     return res.data;
-//   } catch (error) {
-//     throw new Error(handleErrorMessage(error, 'createApp error'));
-//   }
-// };
-
 export const addSubscription = async (
   params: CreateSubscriptionRequest
-): Promise<CreateSubscriptionResponse> => {
+): Promise<boolean> => {
   try {
-    const res = await request.subscription.addSubscription({
-      params,
-      cancelTokenSourceKey: CancelTokenSourceKey.ADD_SUBSCRIPTION,
+    const { appId, deployKey, Code, Manifest } = params;
+    const Authorization = await getAccessToken({
+      client_id: appId,
+      client_secret: deployKey,
     });
-    return res.data;
-    // eslint-disable-next-line
-  } catch (error: any) {
-    // eslint-disable-next-line
-    const newError: any = new Error(
-      handleErrorMessage(error, 'addSubscription error')
-    );
-    if (axios.isCancel(error)) {
-      newError.name = CommonErrorNameType.CANCEL;
-    }
-    newError.code = error?.code;
-
-    throw newError;
+    const formData = new FormData();
+    formData.append('Manifest', Manifest);
+    formData.append('Code', Code.originFileObj);
+    // deploy true or false
+    let response = false;
+    await fetch('/api/apps/subscriptions', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Authorization: `${Authorization.token_type} ${Authorization.access_token}`,
+      },
+    }).then((res: Response) => {
+      response = res.ok;
+    });
+    return response;
+  } catch (error) {
+    throw new Error(handleErrorMessage(error, 'addSubscription error'));
   }
 };
 
@@ -69,7 +63,24 @@ export const updateCode = async (params: UpdateCode): Promise<null> => {
 export const getSubscriptions = async (): Promise<GetSubscriptionResponse> => {
   try {
     const res = await request.subscription.getSubscriptions();
-    return res.data;
+    return res;
+  } catch (error) {
+    throw new Error(handleErrorMessage(error, 'getSubscription error'));
+  }
+};
+
+export const getDevTemplate = async (
+  params: GetDevTemplateRequest
+): Promise<Blob> => {
+  try {
+    const res = await request.subscription.getDevTemplate({
+      data: params,
+      responseType: 'blob',
+      headers: {
+        'Content-Type': 'application/json; application/octet-stream',
+      },
+    });
+    return res;
   } catch (error) {
     throw new Error(handleErrorMessage(error, 'getSubscription error'));
   }
