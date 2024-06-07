@@ -2,7 +2,7 @@
 const fs = require('fs');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
-const filePath = path.resolve(__dirname, `../src/constants/index.ts`);
+const filePath = path.resolve(__dirname, `../src/constant/index.ts`);
 const networkFilePath = './mainnet';
 
 fs.readFile(filePath, 'utf-8', (err, data) => {

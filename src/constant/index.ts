@@ -1,3 +1,3 @@
-export * from './testnet';
+export * from './mainnet';
 
 export const NoAuthToken = 'NoAuthToken';
