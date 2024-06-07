@@ -2,7 +2,7 @@ import { EditOutlined, SyncOutlined } from '@ant-design/icons';
 import { Button, Select } from 'antd';
 import { MessageInstance } from 'antd/es/message/interface';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import CreateAppDrawer from '@/components/dashboard/CreateAppDrawer';
 
@@ -25,6 +25,14 @@ export default function HeaderHandle({
   const [version, setVersion] = useState<string>(
     currentAppDetail?.versions?.currentVersion
   );
+
+  useEffect(() => {
+    setVersion(currentAppDetail?.versions?.currentVersion);
+  }, [currentAppDetail?.versions?.currentVersion]);
+
+  const handleUpdate = useCallback(() => {
+    console.log(version);
+  }, [version]);
 
   return (
     <div className='border-gray-F0 flex h-[130px] items-center justify-between border-b pt-[14px]'>
@@ -67,7 +75,7 @@ export default function HeaderHandle({
           <Select
             onChange={(value) => setVersion(value)}
             className='w-[200px]'
-            value={version}
+            defaultValue={currentAppDetail?.versions?.currentVersion}
             options={[
               {
                 value: currentAppDetail?.versions?.currentVersion,
@@ -80,12 +88,13 @@ export default function HeaderHandle({
             ]}
           />
           <Button
-            className='text-blue-link ml-3'
+            className='text-blue-link ml-3 hidden'
             icon={<SyncOutlined />}
             type='text'
             iconPosition='start'
+            onClick={() => handleUpdate()}
           >
-            Upload
+            Update
           </Button>
         </div>
       )}

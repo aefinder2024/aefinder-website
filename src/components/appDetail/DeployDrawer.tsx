@@ -69,7 +69,6 @@ export default function DeployDrawer({
   ]);
 
   const beforeUpload = async (e: File) => {
-    console.log(e.size);
     if (e.size > 50 * 1024 * 1024) {
       messageApi.open({
         type: 'error',
@@ -126,7 +125,8 @@ export default function DeployDrawer({
           <Upload
             listType='text'
             accept='.dll'
-            beforeUpload={(e) => beforeUpload(e)}
+            beforeUpload={beforeUpload}
+            maxCount={1}
           >
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
