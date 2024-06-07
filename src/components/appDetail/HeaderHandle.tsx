@@ -8,6 +8,8 @@ import CreateAppDrawer from '@/components/dashboard/CreateAppDrawer';
 
 import { useAppSelector } from '@/store/hooks';
 
+import { AppStatusType } from '@/types/appType';
+
 type HeaderHandleProps = {
   setDeployDrawerVisible: (visible: boolean) => void;
   messageApi: MessageInstance;
@@ -19,8 +21,9 @@ export default function HeaderHandle({
 }: HeaderHandleProps) {
   const username = useAppSelector((state) => state.common.username);
   const [editAppDrawerVisible, setEditAppDrawerVisible] = useState(false);
-  const currentAppDetail = useAppSelector(
-    (state) => state.app.currentAppDetail
+  const { currentAppDetail } = useAppSelector((state) => state.app);
+  const [version, setVersion] = useState<string>(
+    currentAppDetail?.versions?.currentVersion
   );
 
   return (
@@ -59,30 +62,38 @@ export default function HeaderHandle({
           Deploy...
         </Button>
       </div>
-      <div>
-        <Select
-          defaultValue='Deployed'
-          style={{ width: 120 }}
-          options={[
-            {
-              value: 'Deployed',
-              label: 'Deployed',
-            },
-            {
-              value: 'UnDeployed',
-              label: 'UnDeployed',
-            },
-          ]}
-        />
-        <Button
-          className='text-blue-link ml-3'
-          icon={<SyncOutlined />}
-          type='text'
-          iconPosition='start'
-        >
-          Upload
+      {currentAppDetail.status === AppStatusType.Deployed && (
+        <div>
+          <Select
+            onChange={(value) => setVersion(value)}
+            className='w-[200px]'
+            value={version}
+            options={[
+              {
+                value: currentAppDetail?.versions?.currentVersion,
+                label: currentAppDetail?.versions?.currentVersion,
+              },
+              {
+                value: currentAppDetail?.versions?.pendingVersion,
+                label: currentAppDetail?.versions?.pendingVersion,
+              },
+            ]}
+          />
+          <Button
+            className='text-blue-link ml-3'
+            icon={<SyncOutlined />}
+            type='text'
+            iconPosition='start'
+          >
+            Upload
+          </Button>
+        </div>
+      )}
+      {currentAppDetail.status === AppStatusType.UnDeployed && (
+        <Button type='text' size='small' className='bg-gray-D6 relative top-1'>
+          UnDeployed
         </Button>
-      </div>
+      )}
       {editAppDrawerVisible && (
         <CreateAppDrawer
           type={1}

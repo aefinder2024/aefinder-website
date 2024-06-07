@@ -10,9 +10,10 @@ import {
   UpdateCode,
   UpdateSubscriptionRequest,
 } from '@/types/subscriptionType';
+
 export const addSubscription = async (
   params: CreateSubscriptionRequest
-): Promise<string> => {
+): Promise<boolean> => {
   try {
     const { appId, deployKey, Code, Manifest } = params;
     const Authorization = await getAccessToken({
@@ -20,23 +21,20 @@ export const addSubscription = async (
       client_secret: deployKey,
     });
     const formData = new FormData();
-    // const manifestBlob = new Blob([JSON.stringify(Manifest)], { type: 'application/json' });
-    const CodeBlob = new Blob([Code]);
     formData.append('Manifest', Manifest);
-    formData.append('Code', CodeBlob);
-
-    console.log(formData);
-
-    const response = await fetch('/api/apps/subscriptions', {
+    formData.append('Code', Code.originFileObj);
+    // deploy true or false
+    let response = false;
+    await fetch('/api/apps/subscriptions', {
       method: 'POST',
       body: formData,
       headers: {
-        // 'Content-Type': 'multipart/form-data', // don't add Content-Type
         Authorization: `${Authorization.token_type} ${Authorization.access_token}`,
       },
+    }).then((res: Response) => {
+      response = res.ok;
     });
-    console.log(response);
-    return 'res';
+    return response;
   } catch (error) {
     throw new Error(handleErrorMessage(error, 'addSubscription error'));
   }
@@ -65,7 +63,7 @@ export const updateCode = async (params: UpdateCode): Promise<null> => {
 export const getSubscriptions = async (): Promise<GetSubscriptionResponse> => {
   try {
     const res = await request.subscription.getSubscriptions();
-    return res.data;
+    return res;
   } catch (error) {
     throw new Error(handleErrorMessage(error, 'getSubscription error'));
   }

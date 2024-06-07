@@ -1,6 +1,6 @@
 import { Button, Divider, Form, Input } from 'antd';
 import { MessageInstance } from 'antd/es/message/interface';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Copy from '@/components/Copy';
 
@@ -27,12 +27,18 @@ export default function CreateAppStep2({
   const [form] = Form.useForm();
   const FormItem = Form.Item;
   const dispatch = useAppDispatch();
+  const [tempDescription, setTemDescription] = useState<string>(
+    currentAppDetail.description
+  );
+  const [tempSourceCodeUrl, setTempSourceCodeUrl] = useState<string>(
+    currentAppDetail.sourceCodeUrl
+  );
 
   const handleModify = useCallback(async () => {
     const res = await modifyApp({
       appId: currentAppDetail.appId,
-      description: form.getFieldValue('description'),
-      sourceCodeUrl: form.getFieldValue('sourceCodeUrl'),
+      description: tempDescription,
+      sourceCodeUrl: tempSourceCodeUrl,
     });
     if (res) {
       messageApi.open({
@@ -43,11 +49,12 @@ export default function CreateAppStep2({
       setCreateAppDrawerVisible(false);
     }
   }, [
-    form,
     currentAppDetail.appId,
     setCreateAppDrawerVisible,
     messageApi,
     dispatch,
+    tempDescription,
+    tempSourceCodeUrl,
   ]);
 
   return (
@@ -60,29 +67,41 @@ export default function CreateAppStep2({
       <FormItem name='appName' label='App Name'>
         <Copy
           className='relative top-[-6px]'
-          content={currentAppDetail?.appName || ''}
+          content={currentAppDetail?.appName}
           isShowCopy={true}
         />
       </FormItem>
       <FormItem name='appId' label='AppId'>
         <Copy
           className='relative top-[-6px]'
-          content={currentAppDetail?.appName || ''}
+          content={currentAppDetail?.appId}
           isShowCopy={true}
         />
       </FormItem>
-      <FormItem name='description' label='Description'>
+      <FormItem
+        name='description'
+        label='Description'
+        initialValue={tempDescription}
+      >
         <Input
-          value={currentAppDetail?.description}
+          value={tempDescription}
           placeholder='App description'
           className='rounded-md'
+          maxLength={500}
+          onChange={(e) => setTemDescription(e.target.value)}
         />
       </FormItem>
-      <FormItem name='sourceCodeUrl' label='Repository URL'>
+      <FormItem
+        name='sourceCodeUrl'
+        label='Repository URL'
+        initialValue={tempSourceCodeUrl}
+      >
         <Input
-          value={currentAppDetail?.sourceCodeUrl}
+          value={tempSourceCodeUrl}
           placeholder='App sourceCodeUrl'
           className='rounded-md'
+          maxLength={200}
+          onChange={(e) => setTempSourceCodeUrl(e.target.value)}
         />
       </FormItem>
       <Divider />
