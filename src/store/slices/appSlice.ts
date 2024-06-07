@@ -1,14 +1,17 @@
 import { createAppSlice } from '@/store/createAppSlice';
 
-import { CreateAppResponse } from '@/types/appType';
+import { CreateAppResponse, GetAppDetailResponse } from '@/types/appType';
+import { GetSubscriptionResponse } from '@/types/subscriptionType';
 
 export interface appSliceState {
-  currentAppDetail: CreateAppResponse;
+  currentAppDetail: GetAppDetailResponse;
+  currentVersion: GetSubscriptionResponse;
   appList: CreateAppResponse[];
 }
 
 const initialState: appSliceState = {
-  currentAppDetail: {} as CreateAppResponse,
+  currentAppDetail: {} as GetAppDetailResponse,
+  currentVersion: {} as GetSubscriptionResponse,
   appList: [],
 };
 
@@ -22,7 +25,11 @@ export const appSlice = createAppSlice({
     setCurrentAppDetail: (state, action) => {
       state.currentAppDetail = action.payload;
     },
+    setCurrentVersion: (state, action) => {
+      state.currentVersion = action.payload;
+    },
   },
 });
 
-export const { setAppList, setCurrentAppDetail } = appSlice.actions;
+export const { setAppList, setCurrentAppDetail, setCurrentVersion } =
+  appSlice.actions;

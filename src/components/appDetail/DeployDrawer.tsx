@@ -35,15 +35,38 @@ export default function DeployDrawer({
   );
 
   const handleDeploy = useCallback(async () => {
-    console.log(form.getFieldValue('code'));
-    const res = await addSubscription({
+    messageApi.open({
+      type: 'loading',
+      content: 'Deploying...',
+      duration: 1,
+    });
+    const haveOk = await addSubscription({
       appId: currentAppDetail?.appId,
       deployKey: currentAppDetail?.deployKey || '',
       Manifest: form.getFieldValue('Manifest'),
       Code: form.getFieldValue('code')[0],
     });
-    console.log(res);
-  }, [form, currentAppDetail?.appId, currentAppDetail?.deployKey]);
+    if (haveOk) {
+      messageApi.open({
+        type: 'success',
+        content: 'Deploy Successfully',
+        duration: 1,
+      });
+      setDeployDrawerVisible(false);
+    } else {
+      messageApi.open({
+        type: 'error',
+        content: 'Deploy Failed',
+        duration: 1,
+      });
+    }
+  }, [
+    form,
+    currentAppDetail?.appId,
+    currentAppDetail?.deployKey,
+    messageApi,
+    setDeployDrawerVisible,
+  ]);
 
   const beforeUpload = async (e: File) => {
     console.log(e.size);
@@ -104,7 +127,6 @@ export default function DeployDrawer({
             listType='text'
             accept='.dll'
             beforeUpload={(e) => beforeUpload(e)}
-            // iconRender={}
           >
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>

@@ -28,7 +28,11 @@ export default function DetailBox({ currentAppDetail }: DetailBoxProps) {
           />
         </div>
         {currentAppDetail?.description && (
-          <Copy label='Description' content={currentAppDetail?.description} />
+          <Copy
+            label='Description'
+            content={currentAppDetail?.description}
+            className='relative w-[80%] overflow-hidden'
+          />
         )}
       </div>
       <div className='flex flex-col'>

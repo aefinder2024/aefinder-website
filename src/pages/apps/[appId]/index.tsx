@@ -9,16 +9,18 @@ import DownloadTempFile from '@/components/appDetail/DownloadTempFile';
 import HeaderHandle from '@/components/appDetail/HeaderHandle';
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { setCurrentAppDetail } from '@/store/slices/appSlice';
+import {
+  setCurrentAppDetail,
+  setCurrentVersion,
+} from '@/store/slices/appSlice';
 
 import { queryAuthToken } from '@/api/apiUtils';
 import { getAppDetail } from '@/api/requestApp';
+import { getSubscriptions } from '@/api/requestSubscription';
 
 export default function AppDetail() {
   const [deployDrawerVisible, setDeployDrawerVisible] = useState(false);
-  const currentAppDetail = useAppSelector(
-    (state) => state.app.currentAppDetail
-  );
+  const { currentAppDetail } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
   const [messageApi, contextHolder] = message.useMessage();
   const router = useRouter();
@@ -28,8 +30,10 @@ export default function AppDetail() {
       await queryAuthToken();
       const { appId } = router.query;
       const res = await getAppDetail({ appId: String(appId) });
-      console.log(res);
       dispatch(setCurrentAppDetail(res));
+      const currentVersion = await getSubscriptions();
+      // console.log(currentVersion);
+      dispatch(setCurrentVersion(currentVersion));
     };
     getAppDetailTemp();
   }, [dispatch, deployDrawerVisible, router.query]);
