@@ -1,9 +1,6 @@
 // TODO mainnet -> change the address to the mainnet one
-// const AeFinderHost = 'https://testhome.aefinder.io';
-// const AeFinderAuthHost = 'https://testhome.aefinder.io';
-
-const AeFinderHost = 'http://192.168.71.128:8081';
-const AeFinderAuthHost = 'http://192.168.71.128:8082';
+const AeFinderHost = 'https://gcp-indexer-api.aelf.io';
+const AeFinderAuthHost = 'https://indexer-auth.aefinder.io';
 
 module.exports = [
   {

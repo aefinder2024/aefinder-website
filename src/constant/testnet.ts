@@ -1,3 +1,3 @@
 // testnet-dev
-export const AeFinderHost = '';
-export const AeFinderAuthHost = '';
+export const AeFinderHost = 'https://gcptest-indexer-api.aefinder.io';
+export const AeFinderAuthHost = 'https://gcptest-indexer-auth.aefinder.io';
