@@ -18,14 +18,14 @@ export const DEFAULT_METHOD = 'GET';
  * @type {UrlObj}  // The type of this object from UrlObj.
  */
 
-const AuthList = {
+export const AuthList = {
   token: {
     target: '/connect/token',
     baseConfig: { method: 'POST' },
   },
 };
 
-const appApiList = {
+export const appApiList = {
   getAppList: `${AeFinderHost}/api/apps`,
   createApp: {
     target: `${AeFinderHost}/api/apps`,
@@ -41,7 +41,7 @@ const appApiList = {
   },
 };
 
-const SubscriptionsApiList = {
+export const SubscriptionsApiList = {
   getSubscriptions: `${AeFinderHost}/api/apps/subscriptions`,
   addSubscription: {
     target: `${AeFinderHost}/api/apps/subscriptions`,

@@ -88,10 +88,6 @@ export default function DeployDrawer({
       destroyOnClose={true}
       width='80%'
     >
-      <div>
-        <div>Read the developer documentation for more information:</div>
-        <div>https://hoopox.feishu.cn/wiki/UDSiwf6s6iHTQ9k4ZbWcvEaGn0e</div>
-      </div>
       <Form
         form={form}
         layout='vertical'
