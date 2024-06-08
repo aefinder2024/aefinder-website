@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { API_REQ_FUNCTION } from './apiType';
+import { AeFinderHost } from '@/constant';
 
+import { API_REQ_FUNCTION } from './apiType';
 export const DEFAULT_METHOD = 'GET';
 
 /**
@@ -25,38 +26,37 @@ const AuthList = {
 };
 
 const appApiList = {
-  getAppList: '/api/apps',
+  getAppList: `${AeFinderHost}/api/apps`,
   createApp: {
-    target: '/api/apps',
+    target: `${AeFinderHost}/api/apps`,
     baseConfig: { method: 'POST' },
   },
   modifyApp: {
-    target: '/api/apps',
+    target: `${AeFinderHost}/api/apps`,
     baseConfig: { method: 'PUT' },
   },
   getAppDetail: {
-    // Todo /api/apps/{appid}  -> Url
-    target: '/api/apps',
+    target: `${AeFinderHost}/api/apps`,
     baseConfig: { method: 'GET' },
   },
 };
 
 const SubscriptionsApiList = {
-  getSubscriptions: '/api/apps/subscriptions',
+  getSubscriptions: `${AeFinderHost}/api/apps/subscriptions`,
   addSubscription: {
-    target: '/api/apps/subscriptions',
+    target: `${AeFinderHost}/api/apps/subscriptions`,
     baseConfig: { method: 'POST' },
   },
   updateSubscription: {
-    target: '/api/apps/subscriptions/manifest',
+    target: `${AeFinderHost}/api/apps/subscriptions/manifest`,
     baseConfig: { method: 'PUT' },
   },
   updateCode: {
-    target: '/api/apps/subscriptions/code',
+    target: `${AeFinderHost}/api/apps/subscriptions/code`,
     baseConfig: { method: 'PUT' },
   },
   getDevTemplate: {
-    target: '/api/dev-template',
+    target: `${AeFinderHost}/api/dev-template`,
     baseConfig: { method: 'POST' },
   },
 };
