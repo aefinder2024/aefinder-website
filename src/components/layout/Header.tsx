@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import PrimaryLink from '@/components/links/PrimaryLink';
-import UnstyledLink from '@/components/links/UnstyledLink';
 
 import { useAppSelector } from '@/store/hooks';
 
@@ -17,12 +16,12 @@ export default function Header() {
       {pathname !== '/login' && (
         <div>
           <PrimaryLink href='/dashboard'>My Dashboard</PrimaryLink>
-          <UnstyledLink
+          {/* <UnstyledLink
             href='https://hoopox.feishu.cn/wiki/UDSiwf6s6iHTQ9k4ZbWcvEaGn0e'
             className='mx-[40px]'
           >
             Docs
-          </UnstyledLink>
+          </UnstyledLink> */}
           <span className='w-25 border-gray-E0 inline-block h-10 rounded border px-[20px] leading-[40px]'>
             <Image
               src='/svg/user.svg'
