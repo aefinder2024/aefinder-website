@@ -15,7 +15,9 @@ export default function Header() {
       <Image src='/svg/aefinder-logo.svg' alt='logo' width={150} height={30} />
       {pathname !== '/login' && (
         <div>
-          <PrimaryLink href='/dashboard'>My Dashboard</PrimaryLink>
+          <PrimaryLink className='mr-[40px]' href='/dashboard'>
+            My Dashboard
+          </PrimaryLink>
           {/* <UnstyledLink
             href='https://hoopox.feishu.cn/wiki/UDSiwf6s6iHTQ9k4ZbWcvEaGn0e'
             className='mx-[40px]'

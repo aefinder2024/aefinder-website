@@ -2,6 +2,7 @@ import { handleErrorMessage } from '@/lib/utils';
 
 import { getAccessToken } from './apiUtils';
 import { request } from './index';
+import { SubscriptionsApiList } from './list';
 
 import {
   CreateSubscriptionRequest,
@@ -25,7 +26,7 @@ export const addSubscription = async (
     formData.append('Code', Code.originFileObj);
     // deploy true or false
     let response = false;
-    await fetch('/api/apps/subscriptions', {
+    await fetch(`${SubscriptionsApiList.addSubscription.target}`, {
       method: 'POST',
       body: formData,
       headers: {
