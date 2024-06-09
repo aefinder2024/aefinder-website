@@ -1,18 +1,12 @@
-/// <reference types="react-scripts" />
+declare interface File extends Blob {
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/File/lastModified) */
+  readonly lastModified: number;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/File/name) */
+  readonly name: string;
+  /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/File/webkitRelativePath) */
+  readonly webkitRelativePath: string;
+  // eslint-disable-next-line
+  readonly originFileObj: any;
+}
 
 declare module 'query-string';
-
-// throw error without declaring
-declare module '*.scss';
-declare module '*.module.scss';
-declare module './styles.module.scss';
-
-declare module '*.json';
-declare module '*.css';
-
-declare module '*.png';
-declare module '*.jpg';
-declare module '*.jpeg';
-declare module '*.svg';
-declare module '*.gif';
-declare module '*.ico';

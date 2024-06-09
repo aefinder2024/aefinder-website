@@ -13,7 +13,7 @@
 /out/
 
 # production
-# /build
+/build
 
 # misc
 .DS_Store
@@ -34,15 +34,9 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+next-env.d.ts
 
-# shell
-*.sh
-
-# cache
-.eslintcache
-
-# .idea
-.idea
-
-#mock
-mock
+# next-sitemap
+robots.txt
+sitemap.xml
+sitemap-*.xml

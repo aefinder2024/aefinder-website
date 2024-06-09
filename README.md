@@ -1,27 +1,21 @@
 # AeFinder
-A Powerful Indexer for Blockchain Data Access.
-  
-Open [https://home.aefinder.io](https://home.aefinder.io) to visit the website.
-
-## How to use
 
 In the project directory, you can run:
 
-### `yarn`
+### yarn
 
 Install dependencies.
 
-### `yarn dev`
+### yarn dev
 
-
-### `yarn build:dev`
+### yarn build:dev
 
 Runs the app in the development mode.
 
-### `yarn build:pro`
+### yarn build:pro
 
 Runs the app in the production mode.
 
-### `yarn start`
+### yarn start
 
-Start the application. The application should be compiled with `yarn build:mode` first.
+Start the application. The application should be compiled with yarn build:mode first.
