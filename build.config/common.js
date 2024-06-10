@@ -1,4 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const rewritesConfig = require('./rewrites/index');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
 
 module.exports = {
@@ -9,20 +11,20 @@ module.exports = {
   images: {
     // loader: 'akamai',
     // path: '',
-    dangerouslyAllowSVG: true,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'aefinder-dev.s3.ap-northeast-1.amazonaws.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'aefinder.s3.ap-northeast-1.amazonaws.com',
-      },
-    ],
+    domains: [],
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
+
   productionBrowserSourceMaps: true,
+  // eslint-disable-next-line
+  webpack: (config, { webpack }) => {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+    config.ignoreWarnings = [{ module: /node_modules/ }];
+    return config;
+  },
 };
